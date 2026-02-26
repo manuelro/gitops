@@ -1,0 +1,33 @@
+services:
+  registry:
+    image: registry:2
+    container_name: ${REGISTRY_CONTAINER_NAME:-kind-registry}
+    restart: unless-stopped
+    ports:
+      - "${LOCAL_REGISTRY_PORT:-5001}:5000"
+    environment:
+      REGISTRY_STORAGE_DELETE_ENABLED: "true"
+    volumes:
+      - ./data/registry:/var/lib/registry
+
+  gitea:
+    image: gitea/gitea:1.22.6
+    container_name: ${GITEA_CONTAINER_NAME:-gitops-gitea}
+    restart: unless-stopped
+    ports:
+      - "${GITEA_HTTP_PORT:-3000}:3000"
+      - "${GITEA_SSH_PORT:-2222}:22"
+    environment:
+      USER_UID: "1000"
+      USER_GID: "1000"
+      GITEA__database__DB_TYPE: sqlite3
+      GITEA__database__PATH: /data/gitea/gitea.db
+      GITEA__server__DOMAIN: localhost
+      GITEA__server__HTTP_PORT: ${GITEA_HTTP_PORT:-3000}
+      GITEA__server__ROOT_URL: ${GITEA_URL_FROM_HOST:-http://localhost:3000}
+      GITEA__server__SSH_PORT: ${GITEA_SSH_PORT:-2222}
+      GITEA__security__INSTALL_LOCK: "true"
+      GITEA__service__DISABLE_REGISTRATION: "true"
+      GITEA__service__REQUIRE_SIGNIN_VIEW: "false"
+    volumes:
+      - ./data/gitea:/data

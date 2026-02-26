@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Local env / secrets
+.env
+
+# Platform runtime state
+platform/data/
+platform/kind/kind-config.generated.yaml
+platform/manifests/bootstrap-app.generated.yaml
+
+# Local logs / temp files
+*.log
+*.tmp

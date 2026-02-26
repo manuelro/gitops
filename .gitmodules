@@ -1,0 +1,8 @@
+[submodule "repos/app"]
+  path = repos/app
+  url = git@github.com:manuelro/gitops_app.git
+  branch = main
+[submodule "repos/infra"]
+  path = repos/infra
+  url = git@github.com:manuelro/gitops_infra.git
+  branch = main

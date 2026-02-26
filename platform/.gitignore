@@ -1,0 +1,5 @@
+.env
+.run/
+data/gitea/
+data/registry/
+manifests/bootstrap-app.generated.yaml
